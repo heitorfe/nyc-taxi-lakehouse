@@ -1,0 +1,7 @@
+pandas
+pyarrow
+pyarrowfs-adlgen2
+azure-storage-blob
+python-dotenv
+requests
+tqdm
