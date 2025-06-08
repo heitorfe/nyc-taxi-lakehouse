@@ -16,6 +16,34 @@ Cada linha representa uma corrida individual, com informações sobre horários,
 
 ---
 
+## 🕰️ Evolução do Schema do Yellow Taxi Dataset
+
+O schema do dataset Yellow Taxi passou por diversas mudanças ao longo dos anos, refletindo adaptações tecnológicas, regulatórias e operacionais do setor de táxis em Nova York. Abaixo, um resumo das principais alterações:
+
+- **2010:** O dataset passou por uma padronização dos nomes das colunas, migrando de nomes como `vendor_name` e `Trip_Pickup_DateTime` para nomes em minúsculo e underscore, como `vendor_id` e `pickup_datetime`. Houve também mudanças de tipos de dados, como `rate_code` de string para inteiro.
+- **2011:** Uma grande atualização introduziu colunas padronizadas no formato atual, como `VendorID`, `tpep_pickup_datetime`, `RatecodeID`, `PULocationID`, `DOLocationID`, além de novas métricas como `extra`, `improvement_surcharge`, `congestion_surcharge` e `airport_fee`. Alguns campos antigos, como coordenadas de latitude/longitude, foram removidos em favor de IDs de zonas.
+- **2014–2018:** Diversas colunas passaram a aceitar valores nulos em determinados períodos, refletindo mudanças na coleta ou obrigatoriedade de informações como `congestion_surcharge`, `improvement_surcharge` e `airport_fee`. O tipo de algumas colunas, como `RatecodeID` e `passenger_count`, alternou entre inteiro e double conforme a padronização dos dados.
+- **2018–2023:** Novas alterações de tipos de dados ocorreram, como `VendorID` e `PULocationID` migrando de int64 para int32, e mudanças de string para tipos mais específicos em campos como `store_and_fwd_flag`. O nome da coluna `airport_fee` também foi alterado para `Airport_fee` em 2023.
+- **2025:** Inclusão prevista da coluna `cbd_congestion_fee`, acompanhando novas regulamentações de congestionamento na cidade.
+
+Essas mudanças exigem atenção especial ao processar séries históricas, pois impactam a consistência e a compatibilidade dos dados ao longo do tempo.
+
+---
+
+## 🕰️ Evolução do Schema do Green Taxi Dataset
+
+O schema do dataset Green Taxi também passou por diversas alterações ao longo dos anos, refletindo ajustes operacionais, novas exigências regulatórias e melhorias na coleta de dados. Principais mudanças observadas:
+
+- **2014–2015:** O campo `improvement_surcharge` alternou entre aceitar valores nulos e double, indicando períodos em que a cobrança ou o registro dessa taxa foi facultativo ou em implantação.
+- **2015–2018:** O campo `trip_type` (tipo de corrida) variou entre os tipos double e int64, mostrando ajustes na padronização dos dados. Outros campos, como `payment_type`, `RatecodeID` e `passenger_count`, também alternaram entre int64 e double em diferentes períodos.
+- **2016:** Introdução do campo `congestion_surcharge`, inicialmente aceitando valores nulos e depois double, acompanhando a implementação de taxas de congestionamento em determinadas áreas da cidade.
+- **2018–2023:** Novas alterações de tipos de dados, como `PULocationID`, `DOLocationID` e `VendorID` migrando de int64 para int32, e o campo `store_and_fwd_flag` passando de string para large_string. O campo `ehail_fee` (taxa de chamada eletrônica) também alternou entre null e double.
+- **2025:** Inclusão prevista da coluna `cbd_congestion_fee`, acompanhando novas políticas de cobrança de congestionamento em áreas centrais.
+
+Essas mudanças exigem atenção especial ao integrar e analisar séries históricas do Green Taxi, pois impactam a consistência, o tratamento de valores nulos e a compatibilidade dos dados ao longo do tempo.
+
+---
+
 ## 📊 Esquema de Dados (Yellow Taxi)
 
 Abaixo está a descrição dos campos presentes no dataset dos Yellow Taxis:
