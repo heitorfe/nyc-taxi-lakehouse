@@ -3,8 +3,8 @@ SELECT
     concat_ws(
       '|',
       CAST(VendorID AS STRING),
-      CAST(tpep_pickup_datetime AS STRING),
-      CAST(tpep_dropoff_datetime AS STRING),
+      CAST(lpep_pickup_datetime AS STRING),
+      CAST(lpep_dropoff_datetime AS STRING),
       CAST(PULocationID AS STRING),
       CAST(DOLocationID AS STRING)
     )
@@ -16,14 +16,13 @@ SELECT
     WHEN 1 THEN 'Creative Mobile Technologies, LLC'
     WHEN 2 THEN 'Curb Mobility, LLC'
     WHEN 6 THEN 'Myle Technologies Inc'
-    WHEN 7 THEN 'Helix'
     ELSE 'Unknown'
   END AS vendor_name,
-  tpep_pickup_datetime as pickup_datetime,
-  tpep_dropoff_datetime as dropoff_datetime,
+lpep_pickup_datetime as pickup_datetime,
+  lpep_dropoff_datetime as dropoff_datetime,
   -- Duração da viagem (em minutos)
   ROUND(
-    (UNIX_TIMESTAMP(tpep_dropoff_datetime) - UNIX_TIMESTAMP(tpep_pickup_datetime)) / 60, 2
+    (UNIX_TIMESTAMP(lpep_dropoff_datetime) - UNIX_TIMESTAMP(lpep_pickup_datetime)) / 60, 2
   ) AS trip_duration_minutes,
   passenger_count,
   ROUND(trip_distance * 1.60934, 2) as trip_distance_km,
@@ -71,14 +70,15 @@ SELECT
   tolls_amount,
   improvement_surcharge,
   congestion_surcharge,
-  airport_fee,
-  total_amount
+  ehail_fee,
+  total_amount,
+  pickup_year_month
 FROM
-  bronze.taxi.yellow_taxi
+  bronze.taxi.green_taxi_partitioned
 WHERE
-  tpep_pickup_datetime IS NOT NULL
-  AND tpep_dropoff_datetime IS NOT NULL
+  lpep_pickup_datetime IS NOT NULL
+  AND lpep_dropoff_datetime IS NOT NULL
   AND trip_distance > 0
   AND passenger_count >= 0
-  AND tpep_pickup_datetime <= GETDATE()
-  AND tpep_dropoff_datetime <= GETDATE()
+  AND lpep_pickup_datetime <= GETDATE()
+  AND lpep_dropoff_datetime <= GETDATE()
