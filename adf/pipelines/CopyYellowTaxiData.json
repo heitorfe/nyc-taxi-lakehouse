@@ -1,0 +1,99 @@
+{
+    "name": "CopyYellowTaxiData",
+    "properties": {
+        "activities": [
+            {
+                "name": "LoopOverMonths",
+                "type": "ForEach",
+                "dependsOn": [],
+                "userProperties": [],
+                "typeProperties": {
+                    "items": {
+                        "value": "@createArray('01','02','03','04','05','06','07','08','09','10','11','12')",
+                        "type": "Expression"
+                    },
+                    "isSequential": false,
+                    "batchCount": 3,
+                    "activities": [
+                        {
+                            "name": "CopyFromWebToADLS",
+                            "type": "Copy",
+                            "dependsOn": [],
+                            "policy": {
+                                "retry": 0,
+                                "retryIntervalInSeconds": 30,
+                                "secureOutput": false,
+                                "secureInput": false
+                            },
+                            "userProperties": [],
+                            "typeProperties": {
+                                "source": {
+                                    "type": "ParquetSource",
+                                    "storeSettings": {
+                                        "type": "HttpReadSettings",
+                                        "requestMethod": "GET"
+                                    },
+                                    "formatSettings": {
+                                        "type": "ParquetReadSettings"
+                                    }
+                                },
+                                "sink": {
+                                    "type": "ParquetSink",
+                                    "storeSettings": {
+                                        "type": "AzureBlobFSWriteSettings"
+                                    },
+                                    "formatSettings": {
+                                        "type": "ParquetWriteSettings"
+                                    }
+                                },
+                                "enableStaging": false,
+                                "translator": {
+                                    "type": "TabularTranslator",
+                                    "typeConversion": true,
+                                    "typeConversionSettings": {
+                                        "allowDataTruncation": true,
+                                        "treatBooleanAsNumber": false
+                                    }
+                                }
+                            },
+                            "inputs": [
+                                {
+                                    "referenceName": "TaxiSource",
+                                    "type": "DatasetReference",
+                                    "parameters": {
+                                        "filename": "@concat('yellow_tripdata_',pipeline().parameters.ano, '-', item(), '.parquet')"
+                                    }
+                                }
+                            ],
+                            "outputs": [
+                                {
+                                    "referenceName": "YellowTaxiSink",
+                                    "type": "DatasetReference",
+                                    "parameters": {
+                                        "Directory": {
+                                            "value": "@concat('raw/yellow/', pipeline().parameters.ano)",
+                                            "type": "Expression"
+                                        },
+                                        "Filename": {
+                                            "value": "@concat('yellow_tripdata_',item(), '.parquet' )\n",
+                                            "type": "Expression"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            }
+        ],
+        "parameters": {
+            "ano": {
+                "type": "String",
+                "defaultValue": "2021"
+            }
+        },
+        "annotations": [],
+        "lastPublishTime": "2025-06-17T09:45:27Z"
+    },
+    "type": "Microsoft.DataFactory/factories/pipelines"
+}
