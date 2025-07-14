@@ -89,7 +89,7 @@
 		"parameters": {
 			"ano": {
 				"type": "String",
-				"defaultValue": "2021"
+				"defaultValue": "2024"
 			}
 		},
 		"annotations": [],
