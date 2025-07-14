@@ -1,0 +1,9 @@
+{
+	"name": "sia-dp203-data-factory",
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "7a27c2f1-607f-4580-b829-0067fbea9d84",
+		"tenantId": "f0a4deae-cf65-45b8-94e3-601165db0326"
+	}
+}
