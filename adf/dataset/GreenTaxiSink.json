@@ -1,0 +1,117 @@
+{
+	"name": "GreenTaxiSink",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "taxi",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"Directory": {
+				"type": "string"
+			},
+			"Filename": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": {
+					"value": "@dataset().Filename",
+					"type": "Expression"
+				},
+				"folderPath": {
+					"value": "@dataset().Directory",
+					"type": "Expression"
+				},
+				"fileSystem": "taxi"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": [
+			{
+				"name": "VendorID",
+				"type": "INT_8"
+			},
+			{
+				"name": "lpep_pickup_datetime",
+				"type": "TIMESTAMP_MICROS"
+			},
+			{
+				"name": "lpep_dropoff_datetime",
+				"type": "TIMESTAMP_MICROS"
+			},
+			{
+				"name": "passenger_count",
+				"type": "INT_8"
+			},
+			{
+				"name": "trip_distance",
+				"type": "DOUBLE"
+			},
+			{
+				"name": "RatecodeID",
+				"type": "INT_8"
+			},
+			{
+				"name": "store_and_fwd_flag",
+				"type": "UTF8"
+			},
+			{
+				"name": "PULocationID",
+				"type": "INT_16"
+			},
+			{
+				"name": "DOLocationID",
+				"type": "INT_16"
+			},
+			{
+				"name": "payment_type",
+				"type": "INT_8"
+			},
+			{
+				"name": "fare_amount",
+				"type": "DOUBLE"
+			},
+			{
+				"name": "extra",
+				"type": "DOUBLE"
+			},
+			{
+				"name": "mta_tax",
+				"type": "DOUBLE"
+			},
+			{
+				"name": "tip_amount",
+				"type": "DOUBLE"
+			},
+			{
+				"name": "tolls_amount",
+				"type": "DOUBLE"
+			},
+			{
+				"name": "improvement_surcharge",
+				"type": "DOUBLE"
+			},
+			{
+				"name": "total_amount",
+				"type": "DOUBLE"
+			},
+			{
+				"name": "trip_type",
+				"type": "INT_8"
+			},
+			{
+				"name": "congestion_surcharge",
+				"type": "DOUBLE"
+			},
+			{
+				"name": "ehail_fee",
+				"type": "DOUBLE"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}
