@@ -77,7 +77,10 @@
 											"value": "@concat('raw/green/', pipeline().parameters.ano)",
 											"type": "Expression"
 										},
-										"Filename": "@concat('yellow_tripdata_',item(), '.parquet' )"
+										"Filename": {
+											"value": "@concat('green_tripdata_',item(), '.parquet' )",
+											"type": "Expression"
+										}
 									}
 								}
 							]
