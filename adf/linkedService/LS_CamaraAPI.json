@@ -1,0 +1,12 @@
+{
+	"name": "LS_CamaraAPI",
+	"properties": {
+		"annotations": [],
+		"type": "RestService",
+		"typeProperties": {
+			"url": "https://dadosabertos.camara.leg.br/api/v2",
+			"enableServerCertificateValidation": true,
+			"authenticationType": "Anonymous"
+		}
+	}
+}
