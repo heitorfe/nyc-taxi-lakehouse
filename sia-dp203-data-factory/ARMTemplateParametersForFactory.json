@@ -8,11 +8,17 @@
 		"taxi_accountKey": {
 			"value": ""
 		},
+		"S3_secretAccessKey": {
+			"value": ""
+		},
 		"NYCData_properties_typeProperties_url": {
 			"value": "https://d37ci6vzurychx.cloudfront.net/trip-data/"
 		},
 		"taxi_properties_typeProperties_url": {
 			"value": "https://siadp203sa.dfs.core.windows.net/"
+		},
+		"S3_properties_typeProperties_accessKeyId": {
+			"value": "AKIAXZXUFBDQVYL3BHXZ"
 		}
 	}
 }

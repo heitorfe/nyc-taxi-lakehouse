@@ -11,6 +11,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'taxi'"
 		},
+		"S3_secretAccessKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'secretAccessKey' of 'S3'"
+		},
 		"NYCData_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://d37ci6vzurychx.cloudfront.net/trip-data/"
@@ -18,6 +22,10 @@
 		"taxi_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://siadp203sa.dfs.core.windows.net/"
+		},
+		"S3_properties_typeProperties_accessKeyId": {
+			"type": "string",
+			"defaultValue": "AKIAXZXUFBDQVYL3BHXZ"
 		}
 	},
 	"variables": {
@@ -613,6 +621,64 @@
 						"value": "[parameters('taxi_accountKey')]"
 					}
 				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/S3')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AmazonS3",
+				"typeProperties": {
+					"serviceUrl": "https://s3.amazonaws.com",
+					"accessKeyId": "[parameters('S3_properties_typeProperties_accessKeyId')]",
+					"secretAccessKey": {
+						"type": "SecureString",
+						"value": "[parameters('S3_secretAccessKey')]"
+					},
+					"authenticationType": "AccessKey"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/CamaraStaging')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "S3",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Parquet",
+				"typeProperties": {
+					"location": {
+						"type": "AmazonS3Location",
+						"bucketName": "learnsnowflakedbt-heitor"
+					},
+					"compressionCodec": "snappy"
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/S3')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/CopyDeputadosFull')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"folder": {
+					"name": "Camara"
+				},
+				"annotations": []
 			},
 			"dependsOn": []
 		}
