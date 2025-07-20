@@ -4,7 +4,7 @@
 		"annotations": [],
 		"type": "RestService",
 		"typeProperties": {
-			"url": "https://dadosabertos.camara.leg.br/api/v2/deputados?ordem=ASC&ordenarPor=nome",
+			"url": "https://dadosabertos.camara.leg.br/api/v2",
 			"enableServerCertificateValidation": true,
 			"authenticationType": "Anonymous"
 		}
