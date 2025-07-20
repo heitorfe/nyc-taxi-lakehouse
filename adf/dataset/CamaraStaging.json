@@ -1,0 +1,19 @@
+{
+	"name": "CamaraStaging",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "S3",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AmazonS3Location",
+				"bucketName": "learnsnowflakedbt-heitor"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": []
+	}
+}
